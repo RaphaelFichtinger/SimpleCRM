@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserComponent } from './user/user.component';
 
 
 @Component({
@@ -9,6 +11,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   imports: [
     RouterOutlet,
     ToolbarComponent,
+    DashboardComponent,
+    UserComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
