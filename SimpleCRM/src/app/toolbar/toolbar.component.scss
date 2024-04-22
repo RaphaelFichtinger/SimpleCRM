@@ -11,7 +11,7 @@
 }
 
 .logo-container{
-    border-bottom: 1px solid rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
     padding-left: 16px;
     padding-right: 16px;
     min-height: 56px;
@@ -42,7 +42,7 @@ mat-toolbar, mat-toolbar-row{
         }
 
         &:hover{
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0,0,0,0.04);
         }
     }
 }
