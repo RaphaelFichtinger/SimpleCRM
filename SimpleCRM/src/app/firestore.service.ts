@@ -13,32 +13,67 @@ import { User } from '../models/user.class';
 export class FirestoreService {
   fireStore: Firestore = inject(Firestore);
   userList: User[] = [];
-  items$: Observable<any>;
-  items;
+
+
+  unsubUsers:any;
 
 
 
 
-  constructor() { 
-    this.items$ = collectionData(this.userCollectionRef());
-    this.items = this.items$.subscribe( (list) => {
-      list.forEach((element:any) => {
-        console.log(element);
+  constructor() {
+    this.unsubUsers = this.subUserList();
+  }
+
+
+  async addUser(user: User) {
+    const userData = { ...user }; 
+    await addDoc(collection(this.fireStore, 'users'), userData)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding user: ", error);
+      });
+  }
+
+  subUserList(){
+    return onSnapshot(this.userCollectionRef(), (list) => {   // for whole collection
+      this.userList = [];
+      list.forEach((element: any) => {
+        this.userList.push(this.setUserObject(element.data(), element.id ));
       });
     });
-    this.items.unsubscribe();
   }
 
-
-
-  userCollectionRef(){
-    return collection(this.fireStore, 'users'); // collection refferenz
+  userCollectionRef() {
+    return collection(this.fireStore, 'users'); // collection refference
   }
 
-  getUserRef(colId:string, docId:string){
+  getUserRef(colId: string, docId: string) {
     return doc(collection(this.fireStore, colId), (docId))
-
   }
 
+
+
+  setUserObject(data: any, id: string): User {
+    return new User({
+      id: data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      birthDate: data.birthDate,
+      street: data.street,
+      zipCode: data.zipCode,
+      city: data.city
+    });
+  }
   
+  
+
+
+  ngOnDestroy() {
+    this.unsubUsers();
+   
+  }
+
+
 }

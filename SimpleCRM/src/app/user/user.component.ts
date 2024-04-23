@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, NgModule, inject } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { User } from '../../models/user.class';
+import {MatCardModule} from '@angular/material/card';
+import { FirestoreService } from '../firestore.service';
+import { NgFor } from '@angular/common';
+
 
 @Component({
   selector: 'app-user',
@@ -15,6 +19,8 @@ import { User } from '../../models/user.class';
     MatTooltip,
     MatTooltipModule,
     MatDialogModule,
+    MatCardModule,
+    NgFor
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -22,7 +28,9 @@ import { User } from '../../models/user.class';
 export class UserComponent {
 user: User = new User();
 
-constructor(public dialog: MatDialog) { }
+constructor(public dialog: MatDialog, public firestoreService: FirestoreService) { }
+fireService = inject(FirestoreService)
+
 
 ngOnInit(): void{
 
