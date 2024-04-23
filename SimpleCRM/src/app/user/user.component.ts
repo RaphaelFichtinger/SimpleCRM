@@ -20,7 +20,6 @@ import { User } from '../../models/user.class';
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-
 user: User = new User();
 
 constructor(public dialog: MatDialog) { }

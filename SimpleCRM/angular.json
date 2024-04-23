@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SimpleCRM": {
+    "simplecrm": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -54,7 +54,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -63,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SimpleCRM:build:production"
+              "buildTarget": "simplecrm:build:production"
             },
             "development": {
-              "buildTarget": "SimpleCRM:build:development"
+              "buildTarget": "simplecrm:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "SimpleCRM:build"
+            "buildTarget": "simplecrm:build"
           }
         },
         "test": {
@@ -96,6 +102,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "simplecrm:build:production",
+              "serveTarget": "simplecrm:serve:production"
+            },
+            "development": {
+              "buildTarget": "simplecrm:build:development",
+              "serveTarget": "simplecrm:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
