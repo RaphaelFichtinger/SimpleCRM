@@ -20,13 +20,15 @@ import { NgFor } from '@angular/common';
     MatTooltipModule,
     MatDialogModule,
     MatCardModule,
-    NgFor
+    NgFor,
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
 user: User = new User();
+userList: User[] = [];
+
 
 constructor(public dialog: MatDialog, public firestoreService: FirestoreService) { }
 fireService = inject(FirestoreService)

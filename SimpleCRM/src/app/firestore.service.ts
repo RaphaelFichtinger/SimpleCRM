@@ -13,8 +13,6 @@ import { User } from '../models/user.class';
 export class FirestoreService {
   fireStore: Firestore = inject(Firestore);
   userList: User[] = [];
-
-
   unsubUsers:any;
 
 
@@ -37,11 +35,12 @@ export class FirestoreService {
   }
 
   subUserList(){
-    return onSnapshot(this.userCollectionRef(), (list) => {   // for whole collection
+    return onSnapshot(this.userCollectionRef(), (list) => {
       this.userList = [];
       list.forEach((element: any) => {
-        this.userList.push(this.setUserObject(element.data(), element.id ));
+        this.userList.push(this.setUserObject(element.data(), element.id));
       });
+      this.userList.sort((a, b) => a.firstName.localeCompare(b.firstName)); 
     });
   }
 
