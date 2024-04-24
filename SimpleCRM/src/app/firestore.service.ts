@@ -39,8 +39,11 @@ export class FirestoreService {
       this.userList = [];
       list.forEach((element: any) => {
         this.userList.push(this.setUserObject(element.data(), element.id));
+        //this.getUserRef('colId', 'docId');
+       //console.log(this.userList[1]);
+        
       });
-      this.userList.sort((a, b) => a.firstName.localeCompare(b.firstName)); 
+      this.sortUsers()
     });
   }
 
@@ -52,7 +55,17 @@ export class FirestoreService {
     return doc(collection(this.fireStore, colId), (docId))
   }
 
-
+  sortUsers() {
+    this.userList.sort((a, b) => {
+      if (a.timestamp > b.timestamp) {
+        return 1;
+      }
+      if (a.timestamp < b.timestamp) {
+        return -1;
+      }
+      return 0;
+    });
+  };
 
   setUserObject(data: any, id: string): User {
     return new User({
