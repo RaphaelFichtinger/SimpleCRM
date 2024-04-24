@@ -1,3 +1,5 @@
+
+
 .add-user-btn{
     position: absolute;
     right: 56px;
@@ -6,9 +8,38 @@
 
 .user-table{
     width: 100%;
-    color: rgba( 0,0,0.85);
+    border-collapse: collapse;
+    th{
+        color: rgba( 0,0,0,0.4);
+        font-size: 16px;
+        text-align: start;
+        padding-top: 16px;
+        &:first-child{
+            padding-left: 16px;
+        }
+    }
+    tr{
+        border-bottom: 1px solid rgba( 0,0,0,0.04);    
+        cursor: pointer;
+        &:hover{
+        background-color:  rgba( 0,0,0,0.1);
+        }
+        &:first-child{
+        cursor: unset;
+        background-color: unset;
+        }
+        &:last-child {
+        border-bottom: 0px;
+        }
+    td{
+        height: 48px;
+        &:first-child{
+            padding-left: 16px;
+        }
+    }
 }
 
 li {
     list-style-type: none;
   }
+}
