@@ -49,11 +49,5 @@
         <button [disabled]="loading" mat-flat-button (click)="addUser()">Save</button>
     </div>
   
-    <div>
-        <ul>
-            <li *ngFor="let user of firestoreService.userList">
-                {{ user.firstName }} {{ user.lastName }}
-            </li>
-        </ul>  
-    </div>
+
 </mat-dialog-actions>

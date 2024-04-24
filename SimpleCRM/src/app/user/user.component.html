@@ -2,16 +2,17 @@
   <table class="user-table">
 
   <tr>
-    <th>Name</th>
+    <th>Name    
+      <li *ngFor="let user of firestoreService.userList">
+        {{ user.firstName }} 
+      </li>
+    </th>
+
     <th>E-Mail</th>
     <th>City</th>
   </tr>
 
-  <tr>
-    <li *ngFor="let user of firestoreService.userList">
-      {{ user.firstName }} {{ user.lastName }}
-  </li>
-  </tr>
+
 
   </table>
 </mat-card>
