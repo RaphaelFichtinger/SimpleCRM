@@ -59,6 +59,7 @@ export class FirestoreService {
       id: data.id,
       firstName: data.firstName,
       lastName: data.lastName,
+      email: data.email,
       birthDate: data.birthDate,
       street: data.street,
       zipCode: data.zipCode,

@@ -38,6 +38,7 @@ user:User = new User();
 loading: boolean = false;
 firstName: string = '';
 lastName: string = '';
+email: string = '';
 birthDate: Date | null = null;
 street: string = '';
 zipCode: number | null = null;
@@ -49,9 +50,8 @@ fireService = inject(FirestoreService)
 ngOnInit(): void{
 }
 
-addUser() {
+saveUser() {
   this.loading = true;
-  
   if (this.birthDate) {
     this.user.timestamp = new Date().getTime();
     this.user.birthDate = this.birthDate.getTime();

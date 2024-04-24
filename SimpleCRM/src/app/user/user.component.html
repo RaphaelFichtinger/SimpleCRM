@@ -1,23 +1,19 @@
 <mat-card>
   <table class="user-table">
+    <tr>
+      <th>Name</th>
+      <th>E-Mail</th>
+      <th>City</th>
+    </tr>
 
-  <tr>
-    <th>Name</th>
-    <th>E-Mail</th>
-    <th>City</th>
-  </tr>
-
-  <tr>
-    <td>
-      <li *ngFor="let user of firestoreService.userList">
-      {{ user.firstName }} {{ user.lastName }} </li> </td>
-    <td>dadasd</td>
-    <td>      <li *ngFor="let user of firestoreService.userList">
-      {{ user.city }}</li> </td>
-  </tr>
-
+    <tr *ngFor="let user of firestoreService.userList">
+      <td>{{ user.firstName }} {{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.city }}</td>
+    </tr>
   </table>
 </mat-card>
+
 
 
 <button (click)="openDialog()" class="add-user-btn" mat-fab color="primary" matTooltip="Add User">

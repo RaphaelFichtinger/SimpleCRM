@@ -16,6 +16,14 @@
 
 <div mat-dialog-content>
     <mat-form-field class="full-width">
+        <mat-label>E-mail</mat-label>
+        <mat-hint>Please enter a E-mail Address</mat-hint>
+        <input [disabled]="loading" [(ngModel)]="user.email" matInput >
+    </mat-form-field>
+</div>
+
+<div mat-dialog-content>
+    <mat-form-field class="full-width">
         <mat-label>Choose a date</mat-label>
         <input [disabled]="loading" [(ngModel)]="birthDate" matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -45,8 +53,8 @@
 
 <mat-dialog-actions>
     <div class="buttons-dialog">
-        <button [disabled]="loading" class="ml-16" mat-flat-button>Cancel</button>
-        <button [disabled]="loading" mat-flat-button (click)="addUser()">Save</button>
+        <button [disabled]="loading" class="ml-16" mat-flat-button (click)="dialogRef.close()">Cancel</button>
+        <button [disabled]="loading" mat-flat-button (click)="saveUser()">Save</button>
     </div>
   
 
