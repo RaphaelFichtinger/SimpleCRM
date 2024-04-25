@@ -38,9 +38,11 @@ export class FirestoreService {
     return onSnapshot(this.userCollectionRef(), (list) => {
       this.userList = [];
       list.forEach((element: any) => {
+        console.log(element.id); // id of the docs / elements
+        console.log(this.userList);
+        
         this.userList.push(this.setUserObject(element.data(), element.id));
-        //this.getUserRef('colId', 'docId');
-       //console.log(this.userList[1]);
+
         
       });
       this.sortUsers()
@@ -69,14 +71,14 @@ export class FirestoreService {
 
   setUserObject(data: any, id: string): User {
     return new User({
-      id: data.id,
+      id: id,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       birthDate: data.birthDate,
       street: data.street,
       zipCode: data.zipCode,
-      city: data.city
+      city: data.city,
     });
   }
   

@@ -7,7 +7,7 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { User } from '../../models/user.class';
 import {MatCardModule} from '@angular/material/card';
 import { FirestoreService } from '../firestore.service';
-import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -20,7 +20,7 @@ import { NgFor } from '@angular/common';
     MatTooltipModule,
     MatDialogModule,
     MatCardModule,
-    NgFor,
+    RouterLink
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
