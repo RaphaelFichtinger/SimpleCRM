@@ -1,0 +1,24 @@
+.user-detail-header {
+    min-height: 250px;
+    background-color: rgb(168, 92, 255);
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    img {
+        height: 82px;
+        width: 62px;
+        margin-top: auto; 
+        margin-left: auto;
+        margin-bottom: 20px; 
+        margin-left: 16px;
+    }
+}
+
+.user-details{
+    height: 82px;
+    margin-top: auto; 
+    margin-left: auto;
+    margin-bottom: 16px; 
+    margin-left: 32px;
+}
