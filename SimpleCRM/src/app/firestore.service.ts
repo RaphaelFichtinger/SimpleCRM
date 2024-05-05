@@ -96,7 +96,7 @@ export class FirestoreService {
     return collection(this.fireStore, 'users'); // collection refference
   }
 
-  getUserRef(colId:any, docId: string) {
-    return doc(collection(this.fireStore, docId), this.userId);
+  getUserRef(colId: any, docId: string) {
+    return doc(collection(colId, docId), this.userId);
   }
 }

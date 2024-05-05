@@ -18,36 +18,49 @@ import { Firestore, collectionData, collection, addDoc, onSnapshot, getDoc, doc,
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
-  fireStore: Firestore = inject(Firestore);
+  
+fireStore: Firestore = inject(Firestore);
+unsubSingle:any;
 
 
-
-userId:string = "";
-user: any = {};
+userID:string = "";
+user: User = new User();
 userList: User[] = [];
 
 constructor(public route: ActivatedRoute, public fireService: FirestoreService) { 
-  this.fireService.setUserId(this.userId)
+  this.fireService.setUserId(this.userID)
 }
 
 ngOnInit(): void {
   this.route.paramMap.subscribe(paramMap => {   // gets the userID from the URL
     const userId = paramMap.get('id');
-    console.log(userId);
-    
     if (userId !== null) {
-      this.userId = userId;
-    
-      this.userId = this.fireService.userId;
-      console.log(this.userId);
-      this.fireService.getUserRef(this.fireStore, this.userId)
+      this.userID = userId;
+      console.log(this.userID);
+      this.getUser();
     }
     
   });
 }
 
+getUser(){
+  this.unsubSingle = onSnapshot(this.getUserRef('users', this.userID ), (user) => {
+    this.user = new User(user);
+    console.log('user is ', user.data());
+    
+    
+  })
+}
 
 
 
+
+getUserRef(colId: any, docId: any) {
+  return doc(this.userCollectionRef(), this.userID);
+}
+
+userCollectionRef() {
+  return collection(this.fireStore, 'users'); // collection refference
+}
 
 }
