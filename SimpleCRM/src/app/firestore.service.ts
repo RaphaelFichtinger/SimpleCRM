@@ -5,6 +5,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { Firestore, collectionData, collection, addDoc, onSnapshot, getDoc, doc, updateDoc, CollectionReference, DocumentData, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
+import { get } from 'firebase/database';
 
 
 @Injectable({
@@ -14,12 +15,12 @@ export class FirestoreService {
   fireStore: Firestore = inject(Firestore);
   userList: User[] = [];
   unsubUsers:any;
+  userId: string = "";
 
 
-
-
-  constructor() {
+  constructor( ) {
     this.unsubUsers = this.subUserList();
+    
   }
 
 
@@ -38,7 +39,6 @@ export class FirestoreService {
     return onSnapshot(this.userCollectionRef(), (list) => {
       this.userList = [];
       list.forEach((element: any) => {
-        console.log(element.id); // id of the docs / elements
         console.log(this.userList);
         
         this.userList.push(this.setUserObject(element.data(), element.id));
@@ -49,13 +49,13 @@ export class FirestoreService {
     });
   }
 
-  userCollectionRef() {
-    return collection(this.fireStore, 'users'); // collection refference
-  }
 
-  getUserRef(colId: string, docId: string) {
-    return doc(collection(this.fireStore, colId), (docId))
+
+  getUser(){
+    this.userCollectionRef();
+    this.getUserRef('users', this.userId);
   }
+  
 
   sortUsers() {
     this.userList.sort((a, b) => {
@@ -82,14 +82,21 @@ export class FirestoreService {
       timestamp: data.timestamp
     });
   }
-  
-  
 
+  setUserId(userId: string) {
+    this.userId = userId;
+  }
 
   ngOnDestroy() {
     this.unsubUsers();
    
   }
 
+  userCollectionRef() {
+    return collection(this.fireStore, 'users'); // collection refference
+  }
 
+  getUserRef(colId:any, docId: string) {
+    return doc(collection(this.fireStore, docId), this.userId);
+  }
 }
