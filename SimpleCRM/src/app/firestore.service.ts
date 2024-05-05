@@ -11,6 +11,7 @@ import { get } from 'firebase/database';
 @Injectable({
   providedIn: 'root'
 })
+
 export class FirestoreService {
   fireStore: Firestore = inject(Firestore);
   userList: User[] = [];
@@ -20,7 +21,6 @@ export class FirestoreService {
 
   constructor( ) {
     this.unsubUsers = this.subUserList();
-    
   }
 
 
@@ -35,20 +35,16 @@ export class FirestoreService {
       });
   }
 
+
   subUserList(){
     return onSnapshot(this.userCollectionRef(), (list) => {
       this.userList = [];
       list.forEach((element: any) => {
-        console.log(this.userList);
-        
         this.userList.push(this.setUserObject(element.data(), element.id));
-
-        
       });
       this.sortUsers()
     });
   }
-
 
 
   getUser(){
@@ -69,6 +65,7 @@ export class FirestoreService {
     });
   };
 
+
   setUserObject(data: any, id: string): User {
     return new User({
       id: id,
@@ -83,18 +80,21 @@ export class FirestoreService {
     });
   }
 
+
   setUserId(userId: string) {
     this.userId = userId;
   }
 
+
   ngOnDestroy() {
     this.unsubUsers();
-   
   }
 
+
   userCollectionRef() {
-    return collection(this.fireStore, 'users'); // collection refference
+    return collection(this.fireStore, 'users'); 
   }
+
 
   getUserRef(colId: any, docId: string) {
     return doc(collection(colId, docId), this.userId);
