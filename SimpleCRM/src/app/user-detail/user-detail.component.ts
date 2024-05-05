@@ -6,6 +6,7 @@ import { FirestoreService } from '../firestore.service';
 import { User } from '../../models/user.class';
 import { Firestore, collectionData, collection, addDoc, onSnapshot, getDoc, doc, updateDoc, CollectionReference, DocumentData, setDoc } from '@angular/fire/firestore';
 import { MatIcon } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { MatIcon } from '@angular/material/icon';
   imports: [
     MatCard,
     MatCardModule,
-    MatIcon
+    MatIcon,
+    MatMenuModule
   ],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
@@ -43,6 +45,7 @@ export class UserDetailComponent {
       }
     });
   }
+
 
   getUser() {
     this.unsubSingle = onSnapshot(this.getUserRef('users', this.userID), (user) => {
@@ -76,6 +79,16 @@ export class UserDetailComponent {
 
   userCollectionRef() {
     return collection(this.fireStore, 'users'); // collection refference
+  }
+
+
+
+
+
+
+
+  openAdressDialog(){
+  
   }
 
 }
