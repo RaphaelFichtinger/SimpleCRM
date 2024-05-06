@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { Firestore, collectionData, collection, addDoc, onSnapshot, getDoc, doc, updateDoc, CollectionReference, DocumentData, setDoc } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -35,7 +37,7 @@ export class DialogEditAddressComponent {
 
   user:User|any;
   loading:boolean = false;
-
+  Firestore = inject(Firestore)
 
 constructor(
   public fireService : FirestoreService,
@@ -45,8 +47,15 @@ constructor(
 }
 
 
-saveUser(){
-
+saveUser() {
+  if (this.user) {
+    this.fireService.updateUser(this.user);
+  } else {
+    console.error("Kein Benutzer zum Aktualisieren vorhanden.");
+  }
 }
+
+
+
 
 }

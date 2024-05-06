@@ -17,11 +17,19 @@ export class FirestoreService {
   userList: User[] = [];
   unsubUsers:any;
   userId: string = "";
+  user: User|any;
 
 
   constructor( ) {
     this.unsubUsers = this.subUserList();
   }
+
+
+  async updateUser(user:User){
+      let docRef = this.getUserRef(this.getUser(), this.userId)
+      await updateDoc(docRef, this.getCleanJson(user))
+  }
+
 
 
   async addUser(user: User) {
@@ -98,5 +106,17 @@ export class FirestoreService {
 
   getUserRef(colId: any, docId: string) {
     return doc(collection(colId, docId), this.userId);
+  }
+
+  getCleanJson(user: User) {
+    return {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      birthDate: user.birthDate,
+      street: user.street,
+      zipCode: user.zipCode,
+      city: user.city
+    };
   }
 }
