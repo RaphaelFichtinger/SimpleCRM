@@ -1,0 +1,30 @@
+<h1 mat-dialog-title class="title">Edit Address</h1>
+
+
+<div mat-dialog-content class="dialog-content">
+    <mat-form-field class="full-width">
+        <mat-label>Street + House No.</mat-label>
+        <input [disabled]="loading" [(ngModel)]="user.street" matInput >
+    </mat-form-field>
+</div>
+
+<div mat-dialog-content class="dialog-content">
+    <mat-form-field class="mr-16">
+        <mat-label>Zip code</mat-label>
+        <input type="number" [disabled]="loading" [(ngModel)]="user.zipCode" matInput pattern="[0-9]*">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>City</mat-label>
+        <input [disabled]="loading" [(ngModel)]="user.city" matInput >
+    </mat-form-field>
+</div>
+
+<mat-dialog-actions>
+    <div class="buttons-dialog">
+        <button [disabled]="loading" class="ml-16" mat-flat-button (click)="DialogRef.close()">Cancel</button>
+        <button [disabled]="loading" mat-flat-button (click)="saveUser()">Save</button>
+    </div>
+  
+
+</mat-dialog-actions>

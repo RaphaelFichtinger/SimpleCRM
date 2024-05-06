@@ -7,6 +7,9 @@ import { User } from '../../models/user.class';
 import { Firestore, collectionData, collection, addDoc, onSnapshot, getDoc, doc, updateDoc, CollectionReference, DocumentData, setDoc } from '@angular/fire/firestore';
 import { MatIcon } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 
 @Component({
@@ -30,7 +33,10 @@ export class UserDetailComponent {
   userList: User[] = [];
 
 
-  constructor(public route: ActivatedRoute, public fireService: FirestoreService) {
+  constructor(
+    public route: ActivatedRoute, 
+    public fireService: FirestoreService, 
+    public dialog : MatDialog) {
   }
 
 
@@ -82,13 +88,19 @@ export class UserDetailComponent {
   }
 
 
-
-
-
-
-
   openAdressDialog(){
   
+  }
+
+
+    editMenu() {
+      const dialog = this.dialog.open(DialogEditAddressComponent);
+      dialog.componentInstance.user = this.user;
+ 
+    }
+
+  editUserDetail(){
+    this.dialog.open(DialogEditUserComponent)
   }
 
 }
