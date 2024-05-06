@@ -26,8 +26,8 @@ export class FirestoreService {
 
 
   async updateUser(user:User){
-      let docRef = this.getUserRef(this.getUser(), this.userId)
-      await updateDoc(docRef, this.getCleanJson(user))
+    let docRef = this.getUserRef('users', this.userId);
+    await updateDoc(docRef, this.getCleanJson(user))
   }
 
 
@@ -103,11 +103,11 @@ export class FirestoreService {
     return collection(this.fireStore, 'users'); 
   }
 
-
-  getUserRef(colId: any, docId: string) {
-    return doc(collection(colId, docId), this.userId);
+  getUserRef(colId: string, docId: string) {
+    const collectionRef = collection(this.fireStore, colId);
+    return doc(collectionRef, docId);
   }
-
+  
   getCleanJson(user: User) {
     return {
       firstName: user.firstName,

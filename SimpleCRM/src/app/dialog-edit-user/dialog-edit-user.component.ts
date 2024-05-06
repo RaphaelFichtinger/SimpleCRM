@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -26,7 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatDialogActions,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressBar
   ],
   templateUrl: './dialog-edit-user.component.html',
   styleUrl: './dialog-edit-user.component.scss'
@@ -47,7 +49,14 @@ constructor(
 
 
 
-saveUser(){
+saveUser() {
+  if (this.user) {
+    this.loading = true;
+    this.fireService.updateUser(this.user);
+    this.DialogRef.close();
+  } else {
+    console.error("Kein Benutzer zum Aktualisieren vorhanden.");
+  }
 }
 
 
