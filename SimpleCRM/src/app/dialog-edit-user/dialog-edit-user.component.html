@@ -1,1 +1,35 @@
-<p>dialog-edit-user works!</p>
+<h1 mat-dialog-title class="title">Add User</h1>
+<div mat-dialog-content class="dialog-content">
+    <mat-form-field class="form-field">
+        <mat-label>First Name</mat-label>
+        <input [disabled]="loading" [(ngModel)]="user.firstName" matInput >
+        <mat-hint>Please enter a name</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+        <mat-label>Last Name</mat-label>
+        <input [disabled]="loading" [(ngModel)]="user.lastName" matInput >
+        <mat-hint>Please enter a name</mat-hint>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-content>
+    <mat-form-field class="full-width">
+        <mat-label>E-mail</mat-label>
+        <mat-hint>Please enter a E-mail Address</mat-hint>
+        <input [disabled]="loading" [(ngModel)]="user.email" matInput >
+    </mat-form-field>
+</div>
+
+
+
+
+
+<mat-dialog-actions class="btns">
+    <div class="buttons-dialog">
+        <button [disabled]="loading" class="ml-16" mat-flat-button (click)="DialogRef.close()">Cancel</button>
+        <button [disabled]="loading" mat-flat-button (click)="saveUser()">Save</button>
+    </div>
+  
+
+</mat-dialog-actions>
