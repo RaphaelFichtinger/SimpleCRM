@@ -1,5 +1,10 @@
 .mat-drawer-container{
     height: 100vh;
+    background: rgb(147,0,255);
+    background: -moz-linear-gradient(90deg, rgba(147,0,255,1) 0%, rgba(98,0,176,1) 0%, rgba(0,25,164,1) 0%, rgba(11,0,18,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(147,0,255,1) 0%, rgba(98,0,176,1) 0%, rgba(0,25,164,1) 0%, rgba(11,0,18,1) 100%);
+    background: linear-gradient(90deg, rgba(147,0,255,1) 0%, rgba(98,0,176,1) 0%, rgba(0,25,164,1) 0%, rgba(11,0,18,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9300ff",endColorstr="#0b0012",GradientType=1);
 }
 
 .logo{
@@ -14,6 +19,13 @@
 
 .sidenav{
     width: 300px;
+    background: rgb(147,0,255);
+    background: -moz-linear-gradient(90deg, rgba(147,0,255,1) 0%, rgba(98,0,176,1) 0%, rgba(21,6,97,1) 24%, rgba(19,0,33,1) 88%);
+    background: -webkit-linear-gradient(90deg, rgba(147,0,255,1) 0%, rgba(98,0,176,1) 0%, rgba(21,6,97,1) 24%, rgba(19,0,33,1) 88%);
+    background: linear-gradient(90deg, rgba(147,0,255,1) 0%, rgba(98,0,176,1) 0%, rgba(21,6,97,1) 24%, rgba(19,0,33,1) 88%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9300ff",endColorstr="#130021",GradientType=1);
+    color: white;
+    border-radius: 0px 40px 40px 0px;
 }
 
 .logo-container{
@@ -28,12 +40,17 @@
 mat-toolbar, mat-toolbar-row{
     min-height: 56px;
     height: 56px;
+    background-color: white;
+    color: rgb(71, 54, 255);
+    border-radius: 40px;
+    width: 100%;
+    
 }
 
 .menu-items{
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: 20px;
 
     li{
         padding-left: 16px;
@@ -48,7 +65,9 @@ mat-toolbar, mat-toolbar-row{
         }
 
         &:hover{
-            background-color: rgba(0,0,0,0.04);
+            background-color: rgba(255, 255, 255, 0.29);
+            border-radius: 20px;
+            font-size: 18px;
         }
     }
 }
