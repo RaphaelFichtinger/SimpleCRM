@@ -129,17 +129,17 @@ export class FirestoreService {
     });
   };
 
-  sortTasks() {
-    this.taskList.sort((a, b) => {
-      if (a.employeeName.toLowerCase() < b.employeeName.toLowerCase()) {
-        return -1;
-      }
-      if (a.employeeName.toLowerCase() > b.employeeName.toLowerCase()) {
-        return 1;
-      }
-      return 0;
-    });
-  };
+  // sortTasks() {
+  //   this.taskList.sort((a, b) => {
+  //     if (a.employeeName.toLowerCase() < b.employeeName.toLowerCase()) {
+  //       return -1;
+  //     }
+  //     if (a.employeeName.toLowerCase() > b.employeeName.toLowerCase()) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  // };
 
 
 
