@@ -92,7 +92,7 @@ export class FirestoreService {
       list.forEach((element: any) => {
         this.taskList.push(this.setTaskObject(element.data(), element.id));
       });
-      this.sortTasks()
+      // this.sortTasks()
     });
   }
 
