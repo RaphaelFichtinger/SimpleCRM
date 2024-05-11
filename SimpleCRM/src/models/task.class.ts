@@ -1,33 +1,36 @@
 export class Task {
     id: string;
-    EmployeeName: string;
-    StartTime: number;
-    Deadline: number;
-    TaskName: string;
-    CustomerName: string;
-    Location: string;
+    employeeName: string;
+    startTime: number;
+    deadline: number;
+    taskName: string;
+    description: string;
+    customerName: string;
+    location: string;
     timestamp: number;
   
     constructor(obj?: any) {
       this.id = obj ? obj.id : "";
-      this.EmployeeName = obj ? obj.firstName : "";
-      this.StartTime = obj ? obj.StartTime : "";
-      this.Deadline = obj ? obj.Deadline : "";
-      this.TaskName = obj ? obj.TaskName : "";
-      this.CustomerName = obj ? obj.CustomerName : "";
-      this.Location = obj ? obj.zipCode : ""; 
+      this.employeeName = obj ? obj.firstName : "";
+      this.startTime = obj ? obj.StartTime : "";
+      this.deadline = obj ? obj.Deadline : "";
+      this.taskName = obj ? obj.TaskName : "";
+      this.description = obj ? obj.description : "";
+      this.customerName = obj ? obj.CustomerName : "";
+      this.location = obj ? obj.zipCode : ""; 
       this.timestamp = obj ? obj.timestamp : "";
     }
   
     toJSON() {
       return {
         id: this.id,
-        EmployeeName: this.EmployeeName,
-        StartTime: this.StartTime,
-        Deadline: this.Deadline,
-        TaskName: this.TaskName,
-        CustomerName: this.CustomerName,
-        Location: this.Location,
+        employeeName: this.employeeName,
+        startTime: this.startTime,
+        deadline: this.deadline,
+        taskName: this.taskName,
+        description: this.description,
+        customerName: this.customerName,
+        location: this.location,
       };
     }
   }

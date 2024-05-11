@@ -22,7 +22,7 @@ export class FirestoreService {
 
   taskList: Task[] = [];
   unsubTasks:any;
-  TaskId: string = "";
+  taskId: string = "";
   task: Task|any;
 
   constructor( ) {
@@ -38,9 +38,13 @@ export class FirestoreService {
   }
 
   async updateTask(task:Task){
-    let docRef = this.getTaskRef('tasks', this.userId);
-    await updateDoc(docRef, this.getCleanUserJson(user))
+    let docRef = this.getTaskRef('tasks', this.taskId);
+    await updateDoc(docRef, this.getCleanTaskJson(task))
   }
+
+
+
+
 
 
 
@@ -55,6 +59,22 @@ export class FirestoreService {
       });
   }
 
+  async addTask(task: Task) {
+    const taskData = { ...task }; 
+    await addDoc(collection(this.fireStore, 'tasks'), taskData)
+      .then((docRef) => {
+        console.log("Task written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding new Task: ", error);
+      });
+  }
+
+
+
+
+
+
 
   subUserList(){
     return onSnapshot(this.userCollectionRef(), (list) => {
@@ -66,11 +86,35 @@ export class FirestoreService {
     });
   }
 
+  subTaskList(){
+    return onSnapshot(this.taskCollectionRef(), (list) => {
+      this.taskList = [];
+      list.forEach((element: any) => {
+        this.taskList.push(this.setTaskObject(element.data(), element.id));
+      });
+      this.sortTasks()
+    });
+  }
+
+
+
+
+
 
   getUser(){
     this.userCollectionRef();
     this.getUserRef('users', this.userId);
   }
+
+  getTask(){
+    this.taskCollectionRef();
+    this.getTaskRef('tasks', this.taskId);
+  }
+
+
+
+
+
   
 
   sortUsers() {
@@ -84,6 +128,23 @@ export class FirestoreService {
       return 0;
     });
   };
+
+  sortTasks() {
+    this.taskList.sort((a, b) => {
+      if (a.employeeName.toLowerCase() < b.employeeName.toLowerCase()) {
+        return -1;
+      }
+      if (a.employeeName.toLowerCase() > b.employeeName.toLowerCase()) {
+        return 1;
+      }
+      return 0;
+    });
+  };
+
+
+
+
+
 
 
   setUserObject(data: any, id: string): User {
@@ -100,15 +161,42 @@ export class FirestoreService {
     });
   }
 
+  setTaskObject(data: any, id: string): Task {
+    return new Task({
+      id: id,
+      employeeName: data.employeeName,
+      startTime: data.startTime,
+      deadline: data.deadline,
+      taskName: data.taskName,
+      description: data.description,
+      customerName: data.customerName,
+      location: data.location,
+    });
+  }
+
+
+
+
+
 
   setUserId(userId: string) {
     this.userId = userId;
   }
 
+  setTaskId(taskId: string){
+    this.taskId = taskId;
+  }
+
 
   ngOnDestroy() {
     this.unsubUsers();
+    this.unsubTasks();
   }
+
+
+
+
+
 
 
   userCollectionRef() {
@@ -119,6 +207,10 @@ export class FirestoreService {
     return collection(this.fireStore, 'tasks'); 
   }
 
+
+
+
+
   getUserRef(colId: string, docId: string) {
     const collectionRef = collection(this.fireStore, colId);
     return doc(collectionRef, docId);
@@ -128,6 +220,11 @@ export class FirestoreService {
     const collectionRef = collection(this.fireStore, colId);
     return doc(collectionRef, docId);
   }
+
+
+
+
+
   
   getCleanUserJson(user: User) {
     return {
@@ -143,12 +240,12 @@ export class FirestoreService {
 
   getCleanTaskJson(task: Task) {
     return {
-      EmployeeName: task.EmployeeName,
-      StartTime: task.StartTime,
-      Deadline: task.Deadline,
-      TaskName: task.TaskName,
-      CustomerName: task.CustomerName,
-      Location: task.Location
+      employeeName: task.employeeName,
+      startTime: task.startTime,
+      deadline: task.deadline,
+      taskName: task.taskName,
+      customerName: task.customerName,
+      location: task.location,
     };
   }
 }

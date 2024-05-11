@@ -1,55 +1,62 @@
-<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-<h1 mat-dialog-title>Add Task</h1>
-<div mat-dialog-content>
-    <mat-form-field class="mr-16">
-        <mat-label>First Name</mat-label>
-        <input [disabled]="loading"  matInput >
-        <mat-hint>Please enter a name</mat-hint>
+<div class="main-content">
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <h1 mat-dialog-title>Add Task</h1>
+
+
+
+    <mat-form-field class="margin employee-name-class">
+        <mat-label>Employee Name</mat-label>
+        <input [disabled]="loading" [(ngModel)]="task.employeeName" matInput >
+        <mat-hint>Please enter the responsible employee</mat-hint>
     </mat-form-field>
 
+
+<div mat-dialog-content class="date-field margin">
     <mat-form-field>
-        <mat-label>Last Name</mat-label>
-        <input [disabled]="loading"  matInput >
-        <mat-hint>Please enter a name</mat-hint>
-    </mat-form-field>
-</div>
-
-<div mat-dialog-content>
-    <mat-form-field class="full-width">
-        <mat-label>E-mail</mat-label>
-        <mat-hint>Please enter a E-mail Address</mat-hint>
-        <input [disabled]="loading"  matInput >
-    </mat-form-field>
-</div>
-
-<div mat-dialog-content>
-    <mat-form-field class="full-width">
-        <mat-label>Choose a date</mat-label>
-        <input [disabled]="loading"  matInput [matDatepicker]="picker">
+        <mat-label>date of task start</mat-label>
+        <input [disabled]="loading"  [(ngModel)]="startTime" matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-</div>
-
-<div mat-dialog-content>
-    <mat-form-field class="full-width">
-        <mat-label>Street + House No.</mat-label>
-        <input [disabled]="loading"  matInput >
-    </mat-form-field>
-</div>
-
-<div mat-dialog-content>
-    <mat-form-field class="mr-16">
-        <mat-label>Zip code</mat-label>
-        <input type="number" [disabled]="loading"  matInput pattern="[0-9]*">
-    </mat-form-field>
 
     <mat-form-field>
-        <mat-label>City</mat-label>
-        <input [disabled]="loading"  matInput >
+        <mat-label>Choose a deadline</mat-label>
+        <input [disabled]="loading"  [(ngModel)]="deadline" matInput [matDatepicker]="picker1">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 </div>
+
+
+<mat-form-field class="margin">
+    <mat-label>Task Name</mat-label >
+    <input [disabled]="loading" [(ngModel)]="task.taskName" matInput >
+    <mat-hint>Please enter a name for the task</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="margin">
+    <mat-label>Task Name</mat-label>
+    <input [disabled]="loading" [(ngModel)]="task.description" matInput >
+    <mat-hint>Please enter a description</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="margin">
+    <mat-label></mat-label>
+    <input [disabled]="loading" [(ngModel)]="task.customerName" matInput >
+    <mat-hint>Please enter a Customer Name</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="margin">
+    <mat-label></mat-label>
+    <input [disabled]="loading" [(ngModel)]="task.customerName" matInput >
+    <mat-hint>Please enter a location</mat-hint>
+</mat-form-field>
+
+
+
 
 <mat-dialog-actions>
     <div class="buttons-dialog">
@@ -59,3 +66,4 @@
   
 
 </mat-dialog-actions>
+</div>
