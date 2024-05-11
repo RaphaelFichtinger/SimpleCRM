@@ -25,7 +25,7 @@
         <mat-label>Choose a deadline</mat-label>
         <input [disabled]="loading"  [(ngModel)]="deadline" matInput [matDatepicker]="picker1">
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 </div>
@@ -51,7 +51,7 @@
 
 <mat-form-field class="margin">
     <mat-label></mat-label>
-    <input [disabled]="loading" [(ngModel)]="task.customerName" matInput >
+    <input [disabled]="loading" [(ngModel)]="task.location" matInput >
     <mat-hint>Please enter a location</mat-hint>
 </mat-form-field>
 
