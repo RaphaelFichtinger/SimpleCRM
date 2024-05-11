@@ -6,6 +6,7 @@ import { Firestore, collectionData, collection, addDoc, onSnapshot, getDoc, doc,
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 import { get } from 'firebase/database';
+import { Task } from '../models/task.class';
 
 
 @Injectable({
@@ -19,15 +20,26 @@ export class FirestoreService {
   userId: string = "";
   user: User|any;
 
+  taskList: Task[] = [];
+  unsubTasks:any;
+  TaskId: string = "";
+  task: Task|any;
 
   constructor( ) {
     this.unsubUsers = this.subUserList();
+    this.unsubTasks = this.subTaskList();
+
   }
 
 
   async updateUser(user:User){
     let docRef = this.getUserRef('users', this.userId);
-    await updateDoc(docRef, this.getCleanJson(user))
+    await updateDoc(docRef, this.getCleanUserJson(user))
+  }
+
+  async updateTask(task:Task){
+    let docRef = this.getTaskRef('tasks', this.userId);
+    await updateDoc(docRef, this.getCleanUserJson(user))
   }
 
 
@@ -103,12 +115,21 @@ export class FirestoreService {
     return collection(this.fireStore, 'users'); 
   }
 
+  taskCollectionRef() {
+    return collection(this.fireStore, 'tasks'); 
+  }
+
   getUserRef(colId: string, docId: string) {
     const collectionRef = collection(this.fireStore, colId);
     return doc(collectionRef, docId);
   }
+
+  getTaskRef(colId: string, docId: string) {
+    const collectionRef = collection(this.fireStore, colId);
+    return doc(collectionRef, docId);
+  }
   
-  getCleanJson(user: User) {
+  getCleanUserJson(user: User) {
     return {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -117,6 +138,17 @@ export class FirestoreService {
       street: user.street,
       zipCode: user.zipCode,
       city: user.city
+    };
+  }
+
+  getCleanTaskJson(task: Task) {
+    return {
+      EmployeeName: task.EmployeeName,
+      StartTime: task.StartTime,
+      Deadline: task.Deadline,
+      TaskName: task.TaskName,
+      CustomerName: task.CustomerName,
+      Location: task.Location
     };
   }
 }
