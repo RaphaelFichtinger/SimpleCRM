@@ -2,3 +2,12 @@ body{
     height: 100dvh;
     margin: 0px;
 }
+
+.date-container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    color: white;
+    font-size: 32px;
+}
