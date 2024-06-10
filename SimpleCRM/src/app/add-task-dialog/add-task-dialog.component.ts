@@ -1,5 +1,5 @@
 import { Component, NgModule, inject } from '@angular/core';
-import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -12,6 +12,8 @@ import { FirestoreService } from '../firestore.service';
 import { CommonModule, NgFor } from '@angular/common';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { Task } from '../../models/task.class';
+import { Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -33,14 +35,8 @@ import { Task } from '../../models/task.class';
   styleUrl: './add-task-dialog.component.scss'
 })
 export class AddTaskDialogComponent {
-  user:User = new User();
-firstName: string = '';
-lastName: string = '';
-email: string = '';
-birthDate: Date | null = null;
-street: string = '';
-zipCode: number | null = null;
-city: string = '';
+
+  fireStore: Firestore = inject(Firestore);
 
 
   task:Task = new Task();
@@ -53,13 +49,32 @@ city: string = '';
   customerName: string = '';
   location: string = '';
 
+  tasks: Task[] = []; // Array to hold tasks
+  unsubSingle: any;
+  taskID: string = "";
+  dialogRef: any;
 
-  constructor(public dialogRef: MatDialogRef<AddTaskDialogComponent>, public firestoreService: FirestoreService) { }
-  fireService = inject(FirestoreService)
+
+  constructor(
+    public route: ActivatedRoute, 
+    public fireService: FirestoreService, 
+    public dialog : MatDialog) {
+      this.getTasks();
+  }
 
 
-  ngOnInit():void{
-
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(paramMap => {
+      const userId = paramMap.get('id');
+      if (this.task.id !== null) {
+        this.taskID = this.task.id;
+      //  console.log('UserID:', this.userID); 
+        this.fireService.setTaskId(this.taskID);
+        this.getTasks();
+        console.log();
+        
+      }
+    });
   }
 
 
@@ -74,7 +89,7 @@ city: string = '';
         this.task.timestamp = new Date().getTime();
         this.task.deadline = this.deadline.getTime();
       } 
-      this.firestoreService.addTask(this.task)
+      this.fireService.addTask(this.task)
         .then(() => {
           this.loading = false;
           console.log('Task added successfully');
@@ -84,6 +99,29 @@ city: string = '';
           console.error('Error adding task: ', error);
         });
     }
+
+
+    getTasks() {
+      this.unsubSingle = onSnapshot(this.getTaskRef('tasks', this.taskID), (task) => {
+        if (task) {
+          this.task = new Task(task.data());
+          console.log(task.data());
+          
+         // console.log('user is ', this.user);
+        } else {
+          console.log('User not found');
+        }
+      });
+    }
+
+    getTaskRef(colId: any, docId: any) {
+      return doc(collection(this.fireStore, colId), docId); // Use collection and doc correctly
+    }
+
+    taskCollectionRef() {
+      return collection(this.fireStore, 'tasks'); // collection refference
+    }
+  
     }
 
 
